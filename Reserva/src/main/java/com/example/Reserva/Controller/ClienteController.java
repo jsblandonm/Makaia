@@ -1,6 +1,7 @@
 package com.example.Reserva.Controller;
 
 import com.example.Reserva.Model.Cliente;
+import com.example.Reserva.Model.Reserva;
 import com.example.Reserva.Service.ServiceCliente;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,25 +14,27 @@ import java.util.List;
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
-
+    
+    private final ServiceCliente serviceCliente;
     @Autowired
-    private ServiceCliente serviceCliente;
-
-    @PostMapping
-    public ResponseEntity<Cliente> addCliente(@Valid @RequestBody Cliente cliente) {
-        Cliente clienteGuardado = serviceCliente.addCliente(cliente);
-        return new ResponseEntity<>(clienteGuardado, HttpStatus.CREATED);
+    public ClienteController(ServiceCliente serviceCliente) {
+        this.serviceCliente = serviceCliente;
     }
 
+    @PostMapping
+    public ResponseEntity<Cliente> create(@Valid @RequestBody Cliente cliente) {
+        Cliente clienteGuardado = serviceCliente.create(cliente);
+        return ResponseEntity.status(HttpStatus.CREATED).body(clienteGuardado);
+    }
     @GetMapping
-    public ResponseEntity<List<Cliente>> getAllClientes() {
-        List<Cliente> clientes = serviceCliente.getAllClientes();
-        return new ResponseEntity<>(clientes, HttpStatus.OK);
+    public ResponseEntity<List<Cliente>> getAll() {
+        List<Cliente> clientes = serviceCliente.findAll();
+        return ResponseEntity.ok(clientes);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> findClienteById(@PathVariable Integer id) {
-        Cliente cliente = serviceCliente.findClienteById(id);
+    public ResponseEntity<Cliente> getById(@PathVariable Integer cedulaCliente) {
+        Cliente cliente = serviceCliente.findById(cedulaCliente);
         if (cliente == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -39,8 +42,8 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> updateCliente(@PathVariable Integer id, @Valid @RequestBody Cliente cliente) {
-        Cliente clienteActualizado = serviceCliente.updateCliente(id, cliente);
+    public ResponseEntity<Cliente> update(@PathVariable Integer cedulaCliente, @Valid @RequestBody Cliente cliente) {
+        Cliente clienteActualizado = serviceCliente.update(cedulaCliente, cliente);
         if (clienteActualizado == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -48,9 +51,15 @@ public class ClienteController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCliente(@PathVariable Integer id) {
-        serviceCliente.deleteCliente(id);
+    public ResponseEntity<Void> delete(@PathVariable Integer cedulaCliente) {
+        serviceCliente.delete(cedulaCliente);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/{cedulaCliente}/reservas")
+    public ResponseEntity<List<Reserva>> getReservasByCliente(@PathVariable Integer cedulaCliente){
+        List<Reserva> reservas = serviceCliente.getReservasByCliente(cedulaCliente);
+        return ResponseEntity.ok(reservas);
     }
 
 }

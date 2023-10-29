@@ -1,6 +1,9 @@
 package com.example.Reserva.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.util.List;
@@ -10,17 +13,28 @@ import java.util.List;
 @Table(name = "clietes")
 public class Cliente {
     @Id
-    @Column(name = "cedula-Cliente",nullable = false)
+    @NotNull
+    @Size(min= 8, max= 20)
+    @Column(name = "cedula-Cliente", unique = true)
     private Integer cedulaCliente;
-    @Column(name = "Nombre-Cliente",nullable = false)
+    @NotNull
+    @Size(min= 2, max= 100)
+    @Column(name = "Nombre-Cliente")
     private String nombreCliente;
-    @Column(name = "Apellido-Cliente", nullable = false)
+    @NotNull
+    @Size(min= 2, max= 100)
+    @Column(name = "Apellido-Cliente")
     private String apellidoCliente;
-    @Column(name = "Direccion-Cliente", nullable = false)
+    @NotNull
+    @Size(max = 250)
+    @Column(name = "Direccion-Cliente")
     private String direccionCliente;
-    @Column(name = "Edad-Cliente", nullable = false)
+    @NotNull
+    @Column(name = "Edad-Cliente")
     private Integer edad;
-    @Column(name = "Email-Cliente", nullable = false)
+    @NotNull
+    @Email
+    @Column(name = "Email-Cliente")
     private String email;
 
 

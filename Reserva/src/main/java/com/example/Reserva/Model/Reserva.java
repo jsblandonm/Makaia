@@ -3,11 +3,9 @@ package com.example.Reserva.Model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -15,32 +13,32 @@ import java.util.List;
 public class Reserva {
 
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codigo-Reserva",nullable = false)
+    @Column(name = "codigo-Reserva")
     private Integer codigoReserva;
-    @Size(max = 100)
-    @Column(name = "fecha-reserva", nullable = false)
-    private Date fechaReserva;
-    @Column(name = "Habitacion", nullable = false)
-    private Integer habitacion;
-    @Column(name = "total-pagar",nullable = false)
+    @NotNull
+    @Column(name = "fecha_Reserva")
+    private LocalDate fechaReserva;
+    @NotNull
+    @Column(name = "total-pagar")
     private Double totalPagar;
 
     @ManyToOne
     @JoinColumn(name = "cedulaCliente")
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "reserva")
-    private List<HabitacionHasReserva> habitacionHasReservas;
+    @ManyToOne
+    @JoinColumn(name = "numeroHabitacion")
+    private Habitacion habitacion;
 
 
     public Reserva() {
     }
 
-    public Reserva(Integer codigoReserva, Date fechaReserva, Integer habitacion, Double totalPagar) {
+    public Reserva(Integer codigoReserva, LocalDate fechaReserva, Double totalPagar) {
         this.codigoReserva = codigoReserva;
         this.fechaReserva = fechaReserva;
-        this.habitacion = habitacion;
         this.totalPagar = totalPagar;
     }
 }
