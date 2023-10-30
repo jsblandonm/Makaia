@@ -22,14 +22,14 @@ public class HabitacionController {
     }
 
     @PostMapping
-    public ResponseEntity<Habitacion> addHabitacion(@Valid @RequestBody Habitacion habitacion) {
-        Habitacion created = habitacionService.addHabitacion(habitacion);
+    public ResponseEntity<Habitacion> create(@Valid @RequestBody Habitacion habitacion) {
+        Habitacion created = habitacionService.create(habitacion);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Habitacion> update(@PathVariable Integer id, @Valid @RequestBody Habitacion habitacion) {
-        Habitacion updated = habitacionService.update(id, habitacion);
+    public ResponseEntity<Habitacion> update(@PathVariable Integer numeroHabitacion, @Valid @RequestBody Habitacion habitacion) {
+        Habitacion updated = habitacionService.update(numeroHabitacion, habitacion);
         return ResponseEntity.ok(updated);
     }
 
@@ -40,8 +40,8 @@ public class HabitacionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        habitacionService.delete(id);
+    public ResponseEntity<Void> delete(@PathVariable Integer numeroHabitacion) {
+        habitacionService.delete(numeroHabitacion);
         return ResponseEntity.noContent().build();
     }
 }

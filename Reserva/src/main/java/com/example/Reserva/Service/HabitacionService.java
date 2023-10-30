@@ -21,17 +21,17 @@ public class HabitacionService {
         return habitacionRepo.findByDisponible(true);
     }
 
-    public void updateDisponibilidad(Integer id, Boolean disponible){
-        Habitacion habitacion = habitacionRepo.findById(id).orElseThrow(() -> new EntityNotFoundException());
+    public void updateDisponibilidad(Integer numeroHabitacion, Boolean disponible){
+        Habitacion habitacion = habitacionRepo.findById(numeroHabitacion).orElseThrow(() -> new EntityNotFoundException());
         habitacion.setDisponible(disponible);
         habitacionRepo.save(habitacion);
     }
 
-    public Habitacion addHabitacion(Habitacion habitacion) {
-        return  null;
+    public Habitacion create(Habitacion habitacion) {
+        return habitacionRepo.save(habitacion);
     }
 
-    public Habitacion update(Integer id, Habitacion habitacion) {
+    public Habitacion update(Integer numeroHabitacion, Habitacion habitacion) {
         return null;
     }
 
@@ -39,7 +39,7 @@ public class HabitacionService {
         return null;
     }
 
-    public void delete(Integer id) {
+    public void delete(Integer numeroHabitacion) {
 
     }
 }

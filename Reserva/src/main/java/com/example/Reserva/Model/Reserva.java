@@ -13,13 +13,12 @@ import java.time.LocalDate;
 public class Reserva {
 
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo-Reserva")
     private Integer codigoReserva;
+    @Column(name = "fechaReserva")
     @NotNull
-    @Column(name = "fecha_Reserva")
-    private LocalDate fechaReserva;
+    private LocalDate fecha;
     @NotNull
     @Column(name = "total-pagar")
     private Double totalPagar;
@@ -36,9 +35,9 @@ public class Reserva {
     public Reserva() {
     }
 
-    public Reserva(Integer codigoReserva, LocalDate fechaReserva, Double totalPagar) {
+    public Reserva(Integer codigoReserva, LocalDate fecha, Double totalPagar) {
         this.codigoReserva = codigoReserva;
-        this.fechaReserva = fechaReserva;
+        this.fecha = fecha;
         this.totalPagar = totalPagar;
     }
 }

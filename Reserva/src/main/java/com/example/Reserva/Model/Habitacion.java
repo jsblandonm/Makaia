@@ -11,6 +11,7 @@ import java.util.List;
 @Table(name = "habitaciones")
 public class Habitacion {
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Numero-habitacion")
     @NotNull

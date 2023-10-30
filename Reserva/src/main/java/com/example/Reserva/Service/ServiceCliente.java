@@ -40,8 +40,8 @@ public class ServiceCliente {
         return clienteRepository.save(cliente);
     }
 
-    public void delete(Integer id) {
-        Cliente cliente = findById(id);
+    public void delete(Integer cedulaCliente) {
+        Cliente cliente = findById(cedulaCliente);
         if(cliente.getReservas() != null && !cliente.getReservas().isEmpty()) {
             throw new ExceptionInInitializerError("No se puede eliminar cliente con reservas existentes");
         }

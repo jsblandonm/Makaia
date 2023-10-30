@@ -10,12 +10,11 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "clietes")
+@Table(name = "clientes")
 public class Cliente {
-    @Id
     @NotNull
-    @Size(min= 8, max= 20)
     @Column(name = "cedula-Cliente", unique = true)
+    @Id
     private Integer cedulaCliente;
     @NotNull
     @Size(min= 2, max= 100)

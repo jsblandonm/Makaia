@@ -1,7 +1,7 @@
 package com.example.Reserva.Controller;
 
 import com.example.Reserva.Model.Reserva;
-import com.example.Reserva.Service.ReservaService;
+import com.example.Reserva.Service.ServiceReserva;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,8 +16,8 @@ import java.util.List;
 public class ReservaController {
 
     @Autowired
-    private ReservaService reservaService;
-    public ReservaController(ReservaService reservaService) {
+    private ServiceReserva reservaService;
+    public ReservaController(ServiceReserva reservaService) {
         this.reservaService = reservaService;
     }
 
@@ -33,15 +33,18 @@ public class ReservaController {
         return ResponseEntity.ok(reservas);
     }
 
-    @GetMapping("/cliente/{cedulaCliente}")
+ /*   @GetMapping("/cliente/{cedulaCliente}")
     public ResponseEntity<List<Reserva>> getByCliente(@PathVariable Integer cedulaCliente ){
         List<Reserva> reservas = reservaService.findByCliente(cedulaCliente);
         return ResponseEntity.ok(reservas);
     }
+
+
     @GetMapping("/disponibles")
-    public ResponseEntity<List<Reserva>> getDisponibles(@RequestParam LocalDate fechaReserva) {
-        List<Reserva> disponibles = reservaService.findDisponibles(fechaReserva);
+    public ResponseEntity<List<Reserva>> getDisponibles(@RequestParam LocalDate fecha) {
+        List<Reserva> disponibles = reservaService.findDisponibles(fecha);
         return ResponseEntity.ok(disponibles);
-    }
+    }*/
+
 
 }
